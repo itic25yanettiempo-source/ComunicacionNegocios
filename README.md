@@ -1,0 +1,2 @@
+# ComunicacionNegocios
+Glosaro de COyE
