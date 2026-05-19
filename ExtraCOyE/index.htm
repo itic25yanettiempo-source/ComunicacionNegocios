@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glosario Académico - Comunicación para los Negocios</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #003366;      /* Azul Corporativo */
+            --accent: #c5a059;       /* Dorado Académico */
+            --bg-light: #f8fafc;     /* Fondo de página */
+            --text-dark: #1e293b;    /* Color de fuente principal */
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Public Sans', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* ENCABEZADO PRINCIPAL (HERO) */
+        .hero-header {
+            background: linear-gradient(135deg, #002244 0%, #004488 100%);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        .hero-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-header p {
+            font-size: 14px;
+            color: #cbd5e1;
+            max-width: 600px;
+            margin: 0 auto;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        /* BARRA DE BÚSQUEDA INTERACTIVA */
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            font-size: 15px;
+            border: 1px solid var(--accent);
+            border-radius: 30px;
+            background: white;
+            color: var(--text-dark);
+            outline: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 18px;
+            top: 15px;
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        /* NAVEGACIÓN RÁPIDA (ÍNDICE) */
+        .nav-index {
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        .nav-index a {
+            display: inline-block;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            padding: 8px 16px;
+            margin: 0 4px;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .nav-index a:hover {
+            background: #f1f5f9;
+            color: var(--accent);
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* BLOQUES / SECCIONES */
+        .block-section {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .block-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: var(--primary);
+            border-left: 5px solid var(--accent);
+            padding-left: 15px;
+            margin-bottom: 25px;
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+
+        /* NUEVO LISTADO EN CUADROS / TARJETAS Interactivas */
+        .words-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 15px;
+        }
+
+        .word-item {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .word-item:hover {
+            background: white;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .word-term {
+            font-size: 15px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .word-item i {
+            color: #94a3b8;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .word-item:hover i {
+            color: var(--accent);
+        }
+
+        /* Elemento oculto para guardar los datos */
+        .word-definitions {
+            display: none;
+        }
+
+        /* VENTANA MODAL (POP-UP INTERACTIVO) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-top: 5px solid var(--accent);
+            padding: 35px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15);
+            position: relative;
+            animation: modalFade 0.3s ease;
+        }
+
+        @keyframes modalFade {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #ef4444;
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .modal-body p {
+            margin-bottom: 15px;
+            font-size: 14.5px;
+            color: #334155;
+            padding-left: 15px;
+            border-left: 3px solid #e2e8f0;
+        }
+
+        .source-tag {
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 5px;
+            display: inline-block;
+            margin-bottom: 3px;
+        }
+        .source-tag.rae { color: #dc2626; }
+        .source-tag.wiki { color: #0284c7; }
+
+        /* PIE DE PÁGINA CON REFERENCIAS APA 7 */
+        footer {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 45px 20px;
+            margin-top: 60px;
+            border-top: 4px solid var(--accent);
+        }
+
+        .footer-content {
+            max-width: 1160px;
+            margin: 0 auto;
+        }
+
+        .footer-content h3 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .apa-citation {
+            font-size: 12.5px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            text-indent: -25px;
+        }
+
+        .apa-citation em {
+            font-style: italic;
+        }
+
+        .copyright {
+            text-align: center;
+            font-size: 11px;
+            color: #475569;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #334155;
+        }
+    </style>
+</head>
+<body>
+
+<header class="hero-header">
+    <h1>Glosario Técnico de Competencias Lingüísticas</h1>
+    <p>Comunicación para los Negocios</p>
+    
+    <div class="search-container">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="vocabSearch" placeholder="Buscar término o palabra..." onkeyup="filterWords()">
+    </div>
+</header>
+
+<nav class="nav-index">
+    <a href="#bloque1">Bloque I</a>
+    <a href="#bloque2">Bloque II</a>
+    <a href="#bloque3">Bloque III</a>
+    <a href="#bloque4">Bloque IV</a>
+    <a href="#bloque5">Bloque V</a>
+    <a href="#bloque6">Bloque VI</a>
+    <a href="#bloque7">Bloque VII</a>
+</nav>
+
+<div class="container">
+
+    <section class="block-section" id="bloque1">
+        <h2 class="block-title">I. Aspectos generales de la comunicación y el liderazgo en el mundo moderno</h2>
+        <div class="words-list">
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">1. Asertividad</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Cualidad de asertivo; expresión de un juicio o punto de vista de manera firme, clara y respetuosa.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Habilidad comunicativa y social que permite manifestar convicciones, derechos o directrices sin caer en la pasividad ni en la agresión corporativa.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">2. Canal</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conducto físico por el que transita la información desde la fuente emisora hasta el destinatario.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Medio de transmisión físico o digital (como correo electrónico, memorándums o redes locales) que soporta el transporte del mensaje corporativo.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">3. Código</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Sistema de signos y reglas que permite formular y comprender mensajes cifrados o lingüísticos.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Conjunto de elements convencionales compartidos por una comunidad lingüística u organizacional, indispensable para la interpretación exacta del texto.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">4. Comunicación</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Acción y efecto de comunicar o comunicarse; transmisión de señales mediante un código común al emisor y al receptor.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Proceso social fundamental e institucional mediante el cual se intercambia información de valor corporativo e interpersonal dentro de entornos económicos modernos.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">5. Contexto</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Entorno lingüístico del cual depende el sentido y valor exacto de una palabra, frase o fragmento textual.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Marco situacional, histórico, cultural y organizacional que rodea el acto comunicativo y define la correcta interpretación de los objetivos institucionales.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">6. Credibilidad</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Calidad de creíble, asociada a la confianza, veracidad y reputación de quien enuncia un discurso.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Atributo estratégico de la comunicación directiva sustentado en la coherencia entre el lenguaje verbal, los datos cuantitativos y las acciones reales.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">7. Emisor</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Que emite, conceptualizado en teoría de la comunicación como el sujeto que enuncia o codifica el mensaje original.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Agente institucional o humano encargado de iniciar, estructurar, empaquetar y proyectar un flujo de datos dentro de una red de intercambio corporativo.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">8. Empatía</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Sentimiento de identificación con algo o alguien; capacidad de identificarse con el prójimo.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Capacidad de comprender el marco de referencia e intereses del interlocutor, clave en la negociación comercial y en el desarrollo del clima organizacional.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">9. Estrategia</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Arte de dirigir las operaciones militares; proceso regulado para asegurar un objetivo complejo.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Patrón de decisiones coherente y planificado que alinea los recursos y la comunicación interna para alcanzar ventajas competitivas sostenibles.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">10. Influencia</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Acción y efecto de influir; poder o autoridad sobre el juicio o conducta de otra persona.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Capacidad de los líderes corporativos para alterar o guiar las decisiones, motivaciones y productividad de sus colaboradores institucionales.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">11. Inteligencia Emocional</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Capacidad de percibir, evaluar, encauzar y regular de manera equilibrada las emociones propias y ajenas.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Competencia ejecutiva indispensable para gestionar crisis, liderar equipos bajo presión y comunicar malas noticias corporativas con equilibrio emocional.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">12. Kinésica</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Disciplina que estudia el significado expresivo, apelativo o comunicativo de los movimientos corporales.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Lenguaje no verbal expresado mediante gestos, posturas y expresiones faciales que complementan o contradicen el discurso de un directivo.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">13. Lenguaje No Verbal</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conjunto de signos, ademanes y gestos omitidos en la palabra formal pero portadores de un sentido expresivo.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Transmisión de significados sin palabras a través del lenguaje corporal, la vestimenta ejecutiva, los tiempos de respuesta y la presencia visual.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">14. Lenguaje Verbal</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Uso de la palabra hablada o escrita estructurada conforme a reglas gramaticales explícitas.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Código lingüístico formal y explícito utilizado por las organizaciones modernas para el intercambio técnico de propuestas e informes escritos.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">15. Liderazgo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Situación de superioridad en que se halla una institución u organización, un producto o un sector económico.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Conjunto de habilidades gerenciales o directivas que un individuo tiene para influir en la forma de ser y actuar de las personas o en un grupo de trabajo determinado.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">16. Mensaje</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conjunto de señales, símbolos o datos ordenados que son objeto de una comunicación formal.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Contenido u objeto comunicativo estructurado que transporta información explícita o implícita a través de canales físicos o digitales definidos.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">17. Modernidad</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Cualidad de moderno; época actual caracterizada por cambios constantes e innovaciones técnicas.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Entorno global interconectado y dinámico que exige la digitalización de los procesos, el teletrabajo y la automatización de la comunicación en los negocios.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">18. Motivación</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conjunto de factores internos o externos que determinan en parte las acciones e impulsos de una persona.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Estímulo comunicativo e institucional orientado a maximizar el compromiso, el rendimiento y el enfoque del capital humano en sus metas de negocio.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">19. Negociación</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Trato comercial o institucional dirigido a la conclusión de un convenio, pacto o contrato mercantil.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Proceso interactivo de intercambio formal donde dos o más partes con intereses comunes y contrapuestos buscan alcanzar un acuerdo mutuo de valor.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">20. Oratoria</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Arte de hablar con elocuencia, orientado de manera clásica a deleitar, persuadir y conmover a un público.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Conjunto de técnicas persuasivas de expresión verbal aplicadas a la presentación de proyectos, asambleas de socios y discursos directivos.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">21. Paralingüística</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Estudio de los elementos no lingüísticos asociados a la lengua, tales como el tono de la voz o el ritmo de la elocución.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Análisis de las cualidades de la voz (volumen, pausas, modulación) que modifican sustancialmente la entrega emocional del mensaje ejecutivo.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">22. Persuasión</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Acción y efecto de persuadir; inducir, mover u obligar a alguien con razones formales a creer o hacer algo.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Habilidad comunicativa estratégica orientada a modificar las actitudes, creencias o intenciones de compra y de inversión de una audiencia comercial.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">23. Proxémica</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Estudio de la organización del espacio físico en las relaciones lingüísticas e interpersonales directas.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Gestión intencional de la distancia corporal e interpersonal y del mobiliario en salas de juntas y oficinas para denotan jerarquía, apertura o autoridad.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">24. Receptor</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Que recibe el mensaje de datos o señales provenientes de una fuente emisora.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Destinatario final de la información, responsable directo de decodificar e interpretar el sentido semántico del mensaje recibido en el negocio.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">25. Red Social Corporativa</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Plataforma informática estructurada para interconectar usuarios con fines profesionales o gremiales.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Red digital privada interna configurada en las empresas modernas para acelerar el intercambio horizontal de conocimiento, minutas y proyectos directivos.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">26. Retroalimentación</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Retorno de parte del rendimiento de un sistema para modificar sus entradas; respuesta reguladora.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Proceso inverso u 'output' donde el receptor comparte su reacción con el emisor, validando el éxito del entendimiento en la toma de decisiones.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">27. Ruido</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Interferencia o perturbación que sufre la señal en su tránsito por un canal de comunicación institucional.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Toda barrera, distorsión técnica, psicológica o ambiental que altera la pureza original del mensaje y entorpece las operaciones del negocio.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">28. Sinergia</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Acción de dos o más causas cuyo efecto conjunto es superior a la suma de los efectos individuales concretos.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Resultado comunicativo y operativo óptimo donde el trabajo cooperativo y coordinado de un equipo de negocios supera los alcances individuales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-section" id="bloque2">
+        <h2 class="block-title">II. La acentuación y la puntuación</h2>
+        <div class="words-list">
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">1. Acento</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Relieve que en la pronunciación se da a una sílaba, distinguiéndola de las demás por una mayor intensidad.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Prominencia fonética de una sílaba que determina el ritmo del habla y la correcta identificación léxica en la lectura de informes.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">2. Acento Diacrítico</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Tilde utilizada para distinguir palabras con idéntica escritura pero que poseen diferentes funciones gramaticales.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Herramientan de precisión ortográfica usada para evitar ambigüedades interpretativas en contratos y correos de negocios (ej. 'más' frente a 'mas').</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">3. Comillas</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Signos de puntuación dobles que se emplean para enmarcar citas textuales directas o palabras de procedencia extranjera.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Caracteres ortográficos requeridos en auditorías para incorporar textualmente testimonios de clientes o declaraciones normativas externas.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">4. Diéresis</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Signo ortográfico (¨) colocado sobre la vocal U para indicar que esta debe pronunciarse formalmente.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Carácter gráfico de cumplimiento obligatorio en el castellano que asegura la correcta lectura fonética de palabras legales o corporativas.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">5. Diptongo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Secuencia de dos vocales diferentes que se pronuncian unificadamente dentro de una misma sílaba.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Estructura vocálica integrada de forma natural en el léxico comercial (ej. 'Finan-cieros'); influye de manera directa en el conteo de sílabas.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">6. El Punto</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Signo de puntuación (.) cuyo uso principal es marcar el final de un enunciado, de un párrafo o de un texto.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Elemento delimitador que segmenta ideas de negocios independientes (punto y seguido) o concluye temas en un reporte (punto y aparte).</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">7. El Punto y Coma</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Signo de puntuación (;) que separa proposiciones coordinadas o elementos complejos que ya incluyen comas interinas.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Signo de jerarquización oracional intermedio, idóneo para listar enumeraciones complejas de variables presupuestarias o técnicas.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">8. Guion</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Signo ortográfico (-) que vincula palabras compuestas o divide vocablos al final de una línea de texto.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Conector gráfico utilizado con frecuencia en la estructuración de códigos de inventario o términos técnicos compuestos del negocio.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">9. Hiato</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Encuentro de dos vocales contiguas que se pronuncian formalmente en sílabas distintas o separadas.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Fenómeno fonético y ortográfico que desintegra diptongos y exige con frecuencia tildes diacríticas u obligatorias (ej. 'Auditorí-a').</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">10. La Coma</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Signo de puntuación (,) que indica una pausa breve dentro de un enunciado o separa elementos de una serie.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Signo ortográfico cuya mala colocación puede alterar por completo el sentido legal de una cotización o el alcance de un acuerdo de socios.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">11. Los Dos Puntos</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Signo de puntuación (:) que detiene el discurso para llamar la atención sobre lo que sigue, habitualmente citas o enumeraciones.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Signo empleado obligatoriamente tras el saludo en correspondencia comercial formal, cartas de intención y para aperturar desgoses de costos.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">12. Mayúscula</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Letra de mayor tamaño y diferente forma que se usa al inicio de nombres propios, oraciones o títulos institucionales.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Criterio normativo indispensable para escribir de manera formal nombres de marcas corporativas, puestos ejecutivos y departamentos institucionales.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">13. Minúscula</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Letra que es menor que la mayúscula y se emplea de manera general en el cuerpo común de la escritura.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Tipo de grafía estándar requerida para la redacción de nombres de cargos genéricos o días de entrega en cronogramas comerciales.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">14. Ortografía</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conjunto de normas que regulan la correcta escritura de una lengua.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Filtro de calidad textual y prestigio que valida el rigor y el profesionalismo técnico de cualquier propuesta comercial o institucional.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">15. Palabra Aguda</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Palabra que lleva el acento prosódico en la última sílaba.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Vocablo cuya intensidad recae al final (ej. 'Inversión', 'Comité'); se tildan obligatoriamente si terminan en las letras N, S o vocal.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">16. Palabra Esdrújula</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Palabra que lleva el acento prosódico en la antepenúltima sílaba.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Vocablo de énfasis antepenúltimo (ej. 'Gráfico', 'Técnico'); se tilda en el cien por ciento de los casos sin excepción alguna.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">17. Palabra Grave (Llana)</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Palabra que lleva el acento prosódico en la penúltima sílaba.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Término con sílaba tónica medial (ej. 'Líder', 'Estrategia'); requiere de tilde cuando no termina ni en N, ni en S, ni en vocal.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">18. Palabra Sobreesdrújula</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Palabra que lleva el acento prosódico en una sílaba anterior a la antepenúltima.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Término complejo formado habitualmente por verbos y pronombres enclíticos (ej. 'Infórmeselo'); siempre exige tilde ortográfica.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">19. Paréntesis</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Signos dobles ( ) que aíslan información complementaria, aclaraciones, datos numéricos o fechas breves.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Herramienta de precisión textual idónea para añadir el acrónimo de una empresa, cifras de divisas o referencias legales dentro del párrafo.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">20. Puntos Suspensivos</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Signo de puntuación (...) que indica suspense, duda o la omisión voluntaria de un fragmento de texto.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Recurso ortográfico poco frecuente en textos comerciales, restringido a la citación parcial de leyes o manuales operativos.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">21. Raya</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Signo ortográfico (—) de mayor longitud que el guion, usado para introducir incisos aclaratorios o diálogos.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Elemento tipográfico sofisticado para intercalar comentarios críticos de la dirección dentro de un reporte estratégico anual.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">22. Signo de Puntuación</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Signo gráfico que delimita las frases y los párrafos para estructurar de forma lógica el discurso escrito.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Elemento de arquitectura textual indispensable para pautar la entonación, evitar contradicciones legales y organizar cláusulas contractuales.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">23. Signos de Exclamación</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Signos dobles (¡ !) que demarcan un enunciado que expresa una fuerte emoción, asombro o mandato.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Recursos gráficos de énfasis condicionados a copys publicitarios o textos de promociones comerciales de alto impacto.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">24. Signos de Interrogación</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Signos dobles (¿ ?) que enmarcan obligatoriamente una secuencia que constituye una pregunta directa.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Elementos lingüísticos utilizados en encuestas de mercado o títulos de folletos publicitarios para interpelar de forma directa al consumidor.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">25. Sílaba Átona</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Sílaba que se pronuncia con menor intensidad y carece por completo de acento prosódico.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Componente menor de las palabras que sirve de base fonética neutral complementaria en el flujo regular de la oratoria institucional.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">26. Sílaba Tónica</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Sílaba sobre la cual recae la mayor fuerza de voz de una palabra determinada durante su pronunciación.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Eje fonético de los vocablos del castellano que rige la aplicación automática de las leyes y tildes ortográficas de la RAE.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">27. Tilde</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Signo ortográfico auxiliar con el que se representa el acento prosódico en la escritura en español.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Trazo gráfico oblicuo (´) que indica de manera explícita la sílaba tónica siguiendo las reglas básicas de acentuación gramatical.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">28. Triptongo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conjunto de tres vocales consecutivas que se enuncian en una sola y misma unidad de sílaba.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Unión silábica infrecuente en castellano pero presente en conjugaciones de tratamiento formal corporativo (ej. 'Amortiguáis').</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-section" id="bloque3">
+        <h2 class="block-title">III. Cómo organizar los contenidos</h2>
+        <div class="words-list">
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">1. Apéndice</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Cosa adjunta o añadida a un escrito o libro para complementar o ampliar la información de la materia central.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Sección de cierre donde se añaden cotizaciones íntegras, planos técnicos o certificados de calidad que saturarían el cuerpo del texto.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">2. Arquitectura de la Información</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Disciplina encargada de estructurar, organizar y etiquetar espacios de información para facilitar su comprensión.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Disciplina enfocada en el diseño lógico de menús y mapas web de portafolios corporativos para optimizar la experiencia del usuario final.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">3. Argumentación Logicial</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Razonamiento formal que se emplea para probar o demostrar una proposición, o para convencer a alguien.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Encadenamiento de datos objetivos y financieros ordenados lógicamente para justificar la viabilidad económica de un nuevo proyecto.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">4. Bosquejo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Trazo preliminar, esquema borrador o plan inicial sobre el cual se va a desarrollar una obra compleja.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Guía de redacción o mapa mental que traza el comunicador corporativo antes de redactar el borrador final de una memoria de actividades.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">5. Coherencia Temática</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Relación lógica, armónica y sin contradicciones internas que guardan las partes de un todo lingüístico.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Propiedad fundamental que asegura que un plan de negocios mantenga una dirección uniforme sin desviarse de sus objetivos iniciales.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">6. Conclusión</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Resolución, juicio o dictamen final que se adopta tras un proceso de análisis de datos o de discusión.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Bloque de cierre corporativo indispensable para sintetizar los hallazgos operativos y formular recomendaciones puntuales de inversión.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">7. Cronología</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Ordenación de hechos o datos históricos siguiendo la línea del tiempo en que ocurrieron de manera exacta.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Criterio lineal de organización de contenidos aplicado en auditorías técnicas para exponer el desarrollo secuencial de un suceso de operaciones.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">8. Cuerpo de Texto</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Parte central y principal de un escrito, distinta de los prefacios, las notas de pie, los apéndices o índices.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Contenido medular de una propuesta técnica donde se despliegan los argumentos cuantitativos y las justificaciones del proyecto.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">9. Delimitación</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Acción de señalar con precisión los límites conceptuales, temporales o físicos de una materia o asunto.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Restricción técnica que realiza el autor de una investigación comercial para acotar su estudio a un mercado geográfico específico.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">10. Discurso Lineal</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Exposición o desarrollo textual que progresa de forma directa, secuencial y uniforme sin digresiones abruptas.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Secuencia de redacción idónea para redactar minutas de acuerdos, permitiendo revisar los acuerdos en el orden exacto en que se trataron.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">11. Enfoque Deductivo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Método de razonamiento lógico que va desde las premisas de carácter general hacia conclusiones particulares.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Estructura de redacción ejecutiva que expone primero la visión global del mercado antes de aterrizar en el desglose de ventas locales.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">12. Enfoque Inductivo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Método que asciende de manera lógica desde observaciones o datos particulares hasta leyes o conclusiones generales.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Modelo de organización de datos que parte del análisis de muestras específicas en laboratorios de control para formular teorías de producción.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">13. Esquema Conceptual</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Representación gráfica o simbólica estructurada que resume los elementos teóricos de un sistema.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Diagrama lógico utilizado para mapear la cadena de suministro o el organigrama administrativo de una corporación moderna.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">14. Estructuración</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Distribución u ordenación lógica de las partes de un conjunto o discurso.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Arquitectura metodológica aplicada a reportes o planes de negocio para asegurar un flujo comprensible de los datos para los directivos.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">15. Glosario</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Catálogo de palabras oscuras, técnicas o desusadas, debidamente explicadas o definidas de forma formal.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Sección interactiva o anexo textual diseñado en manuales corporativos para estandarizar el vocabulario técnico de un sector industrial.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">16. Introducción</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Parte inicial de un texto, discurso o escrito que sirve para preparar la exposición de la materia principal.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Sección de apertura donde se enuncia el problema técnico, el alcance del informe y los objetivos estratégicos de la propuesta comercial.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">17. Índice</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Lista ordenada de capítulos, secciones o materias contenidos en un libro o documento indicando su ubicación gráfica.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Tabla de contenido formal requerida al inicio de manuales de políticas institucionales para guiar la consulta de los operarios.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">18. Jerarquización</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Organización de ideas, elementos o personas siguiendo un estricto orden de gradación, rango o importancia.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Método de diseño de contenidos que antepone los resultados financieros y macro antes de detallar los datos operativos de soporte.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">19. Mapa Mental</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Diagrama o representación gráfica que asocia libremente ideas en torno a una palabra o concept central.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Herramienta visual de planeación estratégica y lluvia de ideas utilizada por los equipos de branding para delimitar campañas de mercado.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">20. Matriz de Contenidos</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Cuadro o tabla de doble entrada estructurada para organizar datos complejos cruzando diferentes variables lingüísticas.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Tabla estratégica de planificación editorial utilizada por las agencias de marketing para calendarizar las publicaciones institucionales.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">21. Resumen</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Exposición breve, oral o escrita, de las ideas principales o partes de un asunto o texto extenso.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Extracto de datos u 'Abstract' colocado al inicio de planes comerciales de gran volumen para facilitar la rápida lectura directiva.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">22. Subtema</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Asunto secundario derivado de un tema principal que amplía o detalla un aspecto del mismo.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Apartado técnico secundario (identificado con numeración decimal, ej. 1.1) que aborda rubros específicos del presupuesto general.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">23. Subtítulo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Título secundario que se coloca tras el principal para precisar o acotar el alcance de la materia que le sigue.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Encabezado de menor jerarquía tipográfica utilizado para segmentar bloques específicos de datos dentro del cuerpo de texto.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">24. Síntesis</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Composición de un todo por la reunión de sus partes; suma o compendio de una materia amplia.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Capacidad de condensar extensas métricas o históricos de producción en una sola tabla o párrafo ejecutivo de alto valor corporativo.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">25. Temática</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conjunto de temas, materias o contenidos específicos que constituyen el núcleo de una obra o discurso.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Eje central o delimitación de la materia de estudio que evita que el redactor de un informe divague hacia asuntos ajenos al negocio.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">26. Título</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Palabra o frase con que se da a conocer de manera formal el nombre o asunto de un escrito o capítulo.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Enunciado de alto impacto visual y tipográfico encargado de resumir de forma precisa el contenido completo de una sección corporativa.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">27. Transición</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Acción y efecto de pasar de un modo de ser, de un estado o de una idea a otra distinta de manera formal.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Estrategia de enlace textual mediante conectores lógicos que suaviza el salto temático entre dos párrafos de un informe.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">28. Viñeta</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Cada uno de los símbolos gráficos que se anteponen a los elementos de una lista para ordenarlos visualmente.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Elemento de diseño de contenidos que fragmenta listados de ventajas competitivas para aligerar la carga cognitiva de la lectura comercial.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-section" id="bloque4">
+        <h2 class="block-title">IV. El buen uso del lenguaje</h2>
+        <div class="words-list">
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">1. Ambigüedad</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Cualidad de aquello que puede interpretarse en más de un sentido o dar lugar a dudas ortográficas o semánticas.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Defecto de redacción de alto riesgo en contratos mercantiles que abre las puertas a litigios por falta de precisión en los alcances.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">2. Antonimia</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Relación de oposición entre los significados de dos palabras opuestas dentro del mismo campo conceptual.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Relación semántica empleada con frecuencia en análisis estratégicos para contrastar variables antagónicas (ej. 'Superávit' frente a 'Déficit').</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">3. Arcaismo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Palabra, elemento o giro lingüístico desusado o propio de épocas pasadas que se conserva por costumbre.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Términos en desuso que deben evitarse en la redacción comercial moderna para mantener la frescura y agilidad del mensaje ejecutivo.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">4. Barbarismo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Incorrección en el uso del lenguaje que consiste en pronunciar o escribir mal las palabras o emplear vocablos impropios.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Vicio lingüístico que demerita la calidad textual de la correspondencia corporativa y resta seriedad a los comunicados institucionales.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">5. Cacofonía</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Disonancia acústica desagradable que resulta de la inarmónica combinación de los elementos de las palabras de una frase.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Efecto auditivo molesto producido por la repetición de sílabas idénticas; debe cuidarse al redactar eslóganes publicitarios y discursos.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">6. Concordancia Gramatical</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conformidad de accidentes gramaticales (género, número, persona) que se exige entre los diferentes componentes oracionales.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Regla morfosintáctica básica cuya omisión invalida el rigor técnico del redactor de informes y resta seriedad al documento legal.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">7. Connotación</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Significado subjetivo, asociativo o figurado que se añade de manera contextual al significado literal de un término.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Núcleo expresivo del branding y la publicidad; palabras seleccionadas para evocar emociones de prestigio, lujo, seguridad o confianza.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">8. Cultismo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Palabra procedente de una lengua clásica (latín o griego) introducida formalmente en el idioma por razones eruditas.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Vocablos elevados utilizados en la oratoria institucionalista y en discursos solemnes de alta dirección para proyectar rigor cultural.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">9. Denotación</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Significado objetivo, formal, literal y directo de una palabra, estándar para todos los hablantes de una lengua.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Lenguaje técnico y descriptivo obligatorio en manuales de ingeniería y catálogos de piezas para evitar cualquier error de operación.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">10. Eufemismo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Manifestación decorosa, suave o decorativa de ideas cuya recta expresión literal resultaría dura, ofensiva o tabú.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Estrategia de comunicación corporativa utilizada para atenuar crisis financieras ante medios de comunicación (ej. 'Ajuste de plantilla').</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">11. Extranjerismo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Préstamo lingüístico tomado de una lengua extranjera, ya sea adaptando su grafía o conservando su forma original.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Vocablos importados, principalmente anglicismos comerciales (ej. 'Marketing', 'Target'), que dominan la comunicación en las agencias de publicidad.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">12. Jerga Profesional</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Lenguaje especial y familiar que usan entre sí los individuos de ciertas profesiones u oficios especializados.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Vocabulario técnico codificado (ej. 'ROI', 'KPI') compartido por un área específica de la empresa que agiliza el intercambio técnico interno.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">13. Lenguaje Coloquial</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Uso de la lengua de carácter informal, relajado y natural propio de la conversación diaria entre conocidos familiares.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Estilo comunicativo informal aceptable únicamente en chats de mensajería interna entre colaboradores de confianza del mismo rango operativo.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">14. Lenguaje Formal</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Uso de la lengua que se ciñe estrictamente a las normas gramaticales, ortográficas y de cortesía institucional.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Estilo de comunicación oficial obligatorio en la redacción de actas de asambleas, oficios y correspondencia directiva externa.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">15. Léxico</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Vocabulario o conjunto de palabras de un idioma, región o comunidad específica.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Caudal de términos técnicos e institucionales dominados por un profesional para comunicarse con solvencia en su sector de negocios.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">16. Modismo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Expresión fija, privativa de una lengua, cuyo significado no se deduce literalmente de las palabras que la forman.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Giros lingüísticos regionales que deben erradicarse de la correspondencia mercantil internacional para no generar confusiones culturales.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">17. Monotonía</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Falta de variedad en cualquier cosa; uso repetitivo de un vocabulario reducido o de las mismas estructuras de la frase.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Pobreza léxica o 'pobreza de vocabulario' que aburre a la audiencia durante un pitch de negocios y denota falta de preparación ejecutiva.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">18. Neologismo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Vocablo, acepción o giro nuevo incorporado de manera formal o consuetudinaria a una lengua.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Término de reciente creación derivado del avance digital (ej. 'E-commerce', 'Monetizar') de uso extendido en el ecosistema emprendedor.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">19. Norma Lingüística</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conjunto de criterios gramaticales y ortográficos que fijan el uso correcto del idioma, respaldados institucionalmente por la Academia.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Marco regulatorio lingüístico que siguen las instituciones y empresas para garantizar la estandarización y mutuo entendimiento global.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">20. Precisión Léxica</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Uso riguroso y exacto de las palabras idóneas que corresponden a la realidad que se desea expresar sin comodines.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Habilidad de redacción técnica que sustituye verbos genéricos (como 'hacer' o 'poner') por términos precisos (como 'manufacturar' o 'instalar').</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">21. Redundancia viciosa</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Repetición innecesaria de palabras o conceptos que no añaden información nueva ni valor expresivo a la oración.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Paja textual o pleonasmo (ej. 'Avanzar hacia adelante') que resta dinamismo, concisión y elegancia a la correspondencia comercial diaria.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">22. Registro Lingüístico</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Variedad de la lengua que se adapta de manera consciente al contexto situacional, social y cultural del acto comunicativo.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Capacidad adaptativa del líder para modular su léxico según hable ante los obreros de la planta o ante la junta directiva de la corporación.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">23. Semántica</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Disciplina lingüística que estudia el significado de los signos lingüísticos y sus combinaciones lógicas.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Análisis del significado exacto de las palabras asentadas en contratos comerciales para mitigar disputas legales por interpretaciones erróneas.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">24. Sinonimia</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Relación de igualdad o semejanza de significados entre dos o más palabras de diferente escritura formal.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Recurso estilístico fundamental utilizado para enriquecer el vocabulario de las propuestas y evitar la repetición monótona de vocablos.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">25. Sintaxis</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Parte de la gramática que estudia el modo en que se combinan las palabras y los grupos sintácticos que estas forman.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Reglas de ordenamiento oracional que garantizan que las ideas de un informe avancen con claridad lógica y sin ambigüedades técnicas.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">26. Solecismo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Falta de sintaxis; error cometido en contra de la exactitud, pureza o concordancia de las reglas gramaticales.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Defecto constructivo de la frase (ej. 'Hubieron fallas') que merma la autoridad profesional de cualquier reporte de auditoría técnica.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">27. Tecnicismo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conjunto de palabras o expresiones de carácter formal propias del lenguaje especializado de una ciencia, arte u oficio.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Léxico especializado indispensable para la comunicación interna entre ingenieros o especialistas financieros, ajeno al lenguaje común.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">28. Vulgarismo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Dicho, giro o palabra de carácter descuidado e incorrecto empleado por el vulgo en contra de la norma formal.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Error de expresión verbal que rompe el protocolo ejecutivo y deteriora de inmediato la imagen del negociador frente a un cliente capital.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-section" id="bloque5">
+        <h2 class="block-title">V. La expresión escrita</h2>
+        <div class="words-list">
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">1. Adecuación</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Propiedad del texto que consiste en adaptarse de forma consciente al receptor, al canal y a la situación comunicativa real.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Ajuste estilístico que realiza el redactor corporativo para modular el nivel técnico del texto según el perfil de la audiencia final.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">2. Bitácora de Operaciones</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Registro cronológico detallado donde se asientan de manera diaria las novedades, incidentes o avances técnicos de un taller de trabajo.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Cuaderno de control u hoja electrónica de campo utilizada por gerentes de planta para documentar relevos y fallas mecánicas puntuales.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">3. Carta Comercial</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Correspondencia formal epistolar enviada entre firmas mercantiles u organizaciones comerciales para tratar asuntos de negocios.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Formato epistolar externo empleado para presentar cotizaciones, formalizar reclamos a proveedores o manifestar intenciones de compra.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">4. Circular</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Orden u oficio notificado formalmente que la dirección de una empresa dirige simultáneamente a todos sus subordinados u operarios.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Documento masivo interno utilizado para informar de forma general sobre asuetos, cambios estructurales o auditorías de área inminentes.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">5. Claridad Textual</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Condición del escrito que resulta inteligible, de fácil comprensión y transparente para cualquier lector promedio.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Ausencia de rodeos, oraciones subordinadas infinitas o tecnicismos excesivos sin explicar en los textos de operación corporativa.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">6. Coherencia</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conexión lógica, armónica y global que guarda la estructura interna de las partes de un escrito.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Atributo textual macro que asegura que el lector perciba el plan de negocios como una sólida e integrada unidad de sentido.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">7. Cohesión</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Unión o enlace gramatical y sintáctico entre las diferentes oraciones y elementos que componen un texto en prosa.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Propiedad textual micro lograda a través del uso preciso de nexos y signos de puntuación, enlazando las frases de forma fluida.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">8. Concisión</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Cualidad de conciso; brevedad, economía lingüística y exactitud en el modo de expresar los conceptos por escrito sin paja.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Habilidad de redacción empresarial orientada a expresar la mayor cantidad de datos financieros utilizando el menor número de palabras.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">9. Conector Lógico</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Palabra o locución que vincula de manera explícita enunciados o párrafos señalando su relación formal de sentido.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Nexos semánticos (ej. 'Por lo tanto', 'En consecuencia') indispensables para guiar al cliente a través de justificaciones de costos.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">10. Correo Ejecutivo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Correspondencia electrónica utilizada en entornos laborales de manera regulada para agilizar el intercambio documental corporativo.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Canal digital prioritario de la comunicación interna y externa moderna; exige un asunto claro, brevedad y un tono cortés riguroso.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">11. Currículum Vítae</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Relación formal de los títulos académicos, honores, cargos y trayectoria profesional que califica a una persona de negocios.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Herramienta de marketing personal y empleabilidad donde el postulante resume sus competencias para capturar el interés de recursos humanos.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">12. Estilo Ejecutivo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Modo particular de redactar caracterizado por la sobriedad, concisión, propiedad formal y claridad en la transmisión de datos.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Tono lingüístico directo y libre de adornos literarios que privilegia la optimización del tiempo de lectura de los inversionistas.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">13. Idea Principal</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Enunciado nuclear que resume la tesis fundamental de un escrito o de un párrafo, de la cual se derivan los demás argumentos.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Núcleo temático de un párrafo corporativo; debe colocarse al inicio de la frase para facilitar el rápido escaneo visual del lector ejecutivo.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">14. Idea Secundaria</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Enunciado complementario que expande, ejemplifica, sustenta o detalla el contenido medular de la tesis de un escrito.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Argumentación complementaria (datos numéricos, cotizaciones base) que respalda las proyecciones macro expuestas en el texto.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">15. Informe Técnico</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Exposición documental detallada sobre el estado de un asunto, proyecto, máquina o investigación financiera específica.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Documento de ingeniería o finanzas estructurado metodológicamente para detallar fallas, auditorías o rendimientos de capital reales.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">16. Manual de Políticas</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Documento institucional que compendia las normas, responsabilidades y prohibiciones de cumplimiento obligatorio para los miembros corporativos.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Compendio normativo interno encargado de estandariar la conducta, la seguridad y los flujos operativos dentro de la industria moderna.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">17. Mecanografía Digital</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Arte o técnica de escribir a máquina o teclados informáticos de forma rápida, ágil, precisa y siguiendo una metodología visual.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Competencia básica del trabajador moderno orientada a capturar textos en software ofimático con fluidez y minimizando errores tipográficos.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">18. Memorándum</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Comunicación diplomática u oficial escrita, breve y resumida, por la que se recuerdan hechos o directrices internas obligatorias.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Documento de comunicación interna de carácter vinculante utilizado por directores para notificar políticas obligatorias a sus colaboradores.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">19. Minuta de Reunión</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Borrador o anotación formal donde se asientan de manera exacta las resoluciones y debates acordados en una junta de trabajo.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Documento legal e institucional que registra responsabilidades, acuerdos y calendarios de entrega fijados tras concluir una sesión organizativa.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">20. Oficio</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Comunicación escrita de carácter formal y oficial cursada entre dependencias gubernamentales o instituciones de negocios de alta jerarquía.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Documento protocolar utilizado por la alta administración para formalizar acuerdos, peticiones o alianzas interinstitucionales externas.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">21. Párrafo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Fragmento de un texto en prosa constituido por un conjunto de líneas consecutivas y terminado en un punto y aparte.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Unidad visual y temática fundamental de un reporte de negocios; cada párrafo debe agotar un argumento técnico específico antes del siguiente.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">22. Propuesta Comercial</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Documento formal mediante el cual se ofrece un producto, servicio o inversión bajo condiciones de costos y plazos pautados.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Documento de ventas estratégico diseñado de manera personalizada para convencer a un cliente corporativo de contratar soluciones mercantiles.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">23. Redacción</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Acción y efecto de redactar; poner por escrito de manera ordenada pensamientos, datos o conocimientos previamente acordados.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Competencia profesional enfocada en codificar mensajes corporativos con un estilo formal, conciso, persuasivo y estructurado en los negocios.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">24. Redacción Persuasiva</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Escritura orientada intencionalmente a modificar conductas, inducir decisiones o guiar el juicio del lector mediante argumentos objetivos.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Disciplina comercial o 'Copywriting' enfocada en redactar landing pages o folletos para inducir la conversión inmediata del consumidor.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">25. Revisión de Texto</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Acción y efecto de someter un escrito a examen o corrección ortográfica y de estilo antes de proceder a su edición final.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Filtro final de aseguramiento de calidad tipográfica obligatorio antes de despachar una licitación pública o reporte anual.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">26. Texto Argumentativo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Escrito orientado a demostrar, fundamentar o defender una tesis mediante razones lógicas u objetivas encaminadas a persuadir.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Estilo de redacción utilizado en propuestas comerciales para convencer a inversores externos sobre la alta rentabilidad del proyecto.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">27. Texto Expositivo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Escrito que tiene por finalidad declarar, explicar o dar a conocer de forma objetiva una serie de hechos, ideas o datos técnicos.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Formato documental descriptivo neutral utilizado en informes de inventarios, memorias contables e instructivos de ensamble industrial.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">28. Texto Narrativo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Relato formal de acontecimientos o sucesos reales o imaginarios distribuidos a lo largo de una línea de tiempo.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Estilo aplicado en el 'Storytelling' corporativo y campañas de relaciones públicas para relatar la fundación de la empresa con impacto emocional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="block-section" id="bloque6">
+        <h2 class="block-title">VI. La expresión oral</h2>
+        <div class="words-list">
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">1. Aparato Fonador</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conjunto de órganos biológicos humanos (laringe, cuerdas vocales, pulmones) que intervienen directamente en la producción de la voz.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Herramienta biológica del orador corporativo; requiere de cuidados específicos y técnicas de respiración para resistir largas rondas de negociación.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">2. Conferencia de Prensa</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Reunión formal convocada por una institución para informar a los medios de comunicación y responder sus preguntas directas.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Evento de relaciones públicas crítico para el manejo de reputación y crisis corporativa; exige voceros altamente entrenados en oratoria.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">3. Debate Ejecutivo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Discusión formal y regulada entre dos o más personas que defienden posturas contrapuestas en torno a una materia específica.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Mecanismo institucionalizado en juntas directivas para evaluar alternativas de inversión confrontando los pros y contras de cada plan.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">4. Dicción</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Manera de hablar o pronunciar considerada desde el punto de vista de la correcta articulación y limpieza de fonemas.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Claridad fonética imprescindible para proyectar liderazgo y autoridad técnica al enunciar discursos comerciales ante grandes auditorios.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">5. Dinámica de Grupo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Método de discusión e interacción grupal formal orientado a resolver problemas teóricos o prácticos de forma conjunta.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Filtro interactivo masivo utilizado en reclutamiento corporativo para observar habilidades blandas, liderazgo y empatía en tiempo real.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">6. Discurso Directivo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Exposición formal y estructurada sobre una materia concreta, pronunciada en público de manera solemne para persuadir.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Herramienta retórica de liderazgo orientada a inspirar a la organización, alinear metas anuales o contener crisis institucionales públicas.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">7. Discurso Informativo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Alocución formal que busca transmitir conocimientos, datos precisos o reportar hechos con total objetividad y neutralidad.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Presentación corporativa cuatrimestral dictada por finanzas para reportar de manera neutral los estados de ganancias y pérdidas.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">8. Elocución</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Modo de elegir y distribuir los vocablos y las frases en el discurso hablado de manera formal.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Habilidad de expression verbal que define la claridad, estética, dicción y fluidez de la oratoria ejecutiva en asambleas directivas.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">9. Entonación</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Movimiento melódico con que se pronuncian los enunciados, el cual varía según la intención comunicativa o afectiva.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Inflexión tonal empleada para transmitir seguridad institucional, empatía o firmeza según el tipo de negociación que se encabece.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">10. Entrevista Laboral</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conversación formal estructurada por un entrevistador para evaluar las competencias y aptitudes de un candidato a un puesto.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Filtro interactivo de selección donde recursos humanos evalúa la coherencia lingüística y la idoneidad técnica del capital humano.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">11. Escucha Activa</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Acción consciente de prestar atención con esfuerzo físico y mental para comprender íntegramente las ideas del emisor.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Competencia gerencial crítica en la mediación de conflictos de trabajo y ventas, orientada a procesar objeciones reales antes de responder.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">12. Exordio</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Primera parte de un discurso formal cuyo objetivo principal es capturar la atención, benevolencia y curiosidad del público.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Gancho inicial utilizado al aperturar una presentación de negocios (datos de impacto, preguntas retóricas) para enganchar a la junta.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">13. Feedback Oral</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Devolución inmediata de comentarios verbales sobre el rendimiento o conducta de un miembro de la organización.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Sesión verbal de evaluación donde el gerente alinea el rendimiento de sus colaboradores reconociendo éxitos y fijando mejoras de trabajo.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">14. Lenguaje Técnico</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Uso especializado del idioma caracterizado por el empleo riguroso de términos propios de una ciencia o rama mercantil.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Vocabulario de precisión empleado en juntas operativas para reportar métricas exactas, restringido para audiencias comunes sin capacitar.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">15. Mesa Redonda</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Reunión de expertos organizada para confrontar opiniones sin jerarquías y bajo la coordinación de un moderador neutral.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Formato de evento corporativo donde especialistas discuten el futuro de un sector industrial frente a una audiencia de inversionistas.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">16. Modulación Vocal</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Variación intencional de las cualidades acústicas del sonido (tono, velocidad, volumen) durante la emisión del habla.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Técnica de oratoria directiva utilizada para recalcar ventajas financieras competitivas y sostener el interés del cliente durante una junta.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">17. Muletilla vocal</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Palabra, frase o sonido que se repite por hábito vicioso para llenar pausas o baches de memoria durante la oratoria.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Defecto del habla (ej. 'este', 'eh', 'bueno') que destruye la fluidez oral e inyecta desconfianza sobre el dominio técnico del orador.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">18. Oratoria Deliberativa</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Género de la oratoria orientado de manera clásica a persuadir o disuadir a una asamblea formal sobre conveniencias de acciones.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Estilo retórico dominante en consejos de administración enfocado en decidir los presupuestos estratégicos de los próximos ciclos.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">19. Panel de Expertos</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Reunión de especialistas elegidos para exponer de manera sucesiva y técnica sus puntos de vista sobre un asunto específico.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Dinámica de comunicación institucional de alta especialización orientada a actualizar al personal sobre nuevas normativas técnicas.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">20. Pánico Escénico</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Estado de ansiedad inhibidora crónico que sufre una persona al hablar en público o presentarse ante una audiencia formal.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Barrera psicológica del capital humano controlable mediante técnicas corporales de respiración y simulacros previos de exposición.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">21. Paralenguaje Directivo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conjunto de cualidades no verbales de la voz humana que matizan y refuerzan el significado del discurso hablado formal.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Control intencional de la velocidad y silencios por parte del CEO para inyectar dramatismo o urgencia a las metas del negocio.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">22. Peroración (Cierre)</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Última parte del discurso formal donde se apela a las emociones de los oyentes y se sintetizan las conclusiones centrales.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Llamado a la acción o bloque conclusivo de un pitch comercial diseñado para indicar la firma del contrato o el cierre de la alianza.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">23. Pitch de Negocios</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Presentación verbal sumamente breve, concisa y directa orientada a capturar el interés inmediato de inversores financieros.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Discurso de venta ultra condensado (generalmente menor a 3 minutos) diseñado para levantar capital semilla exponiendo la rentabilidad.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">24. Ritmo de Elocución</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Velocidad o cadencia en la emisión de las palabras regulada por la distribución de las pausas y los acentos del habla.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Fluidez oral equilibrada (promedio de 130 palabras por minuto) ideal para proyectar tranquilidad técnica en presentaciones estratégicas.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">25. Timbre</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Cualidad peculiar de la voz humana que permite diferenciarla de otras de igual tono y volumen por su composición acústica.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Huella sonora individual del líder corporativo que de manera inconsciente influye en la percepción de cercanía o de autoridad directiva.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">26. Videoconferencia</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Comunicación a distancia bidireccional que integra transmisiones simultáneas de audio y video en tiempo real.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Canal prioritario de la comunicación corporativa global; exige encuadre visual formal, iluminación óptima y control estricto del micrófono.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">27. Voces Corporativas</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Tono, identidad lingüística y línea discursiva unificada que una institución adopta para proyectar su mensaje público de marca.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Consistencia en el estilo verbal utilizado por todos los voceros oficiales de una empresa para resguardar la identidad de marca.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">28. Volumen de Voz</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Intensidad o fuerza acústica de la voz humana determinada por la presión del aire espirado sobre las cuerdas vocales.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Parámetro vocal modular que debe adaptarse al tamaño de la sala de juntas para no aturdir ni sonar carente de fuerza ejecutiva.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="block-section" id="bloque7">
+        <h2 class="block-title">VII. Protocolo para la organización de eventos corporativos</h2>
+        <div class="words-list">
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">1. Acta de Asamblea</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Documento formal y legal donde se asientan de manera fehaciente los acuerdos, votaciones y deliberaciones de una junta corporativa.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Documento vinculante y legalizado ante notario público que formaliza los cambios de capital o de estatutos aprobados por los socios.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">2. Anfitrión</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Persona o institución que recibe y obsequia de manera formal a sus invitados o delegados en una ceremonia o evento de negocios.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Entidad responsable de coordinar la hospitalidad, transportación y seguridad de los socios comerciales que visitan la planta industrial.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">3. Brindis de Honor</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Manifestación de buenos deseos al beber vino o licores formalmente dentro de una ceremonia antes de consumir alimentos.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Acto protocolar breve de cierre en inauguraciones de sucursales o firmas de fusiones comerciales para celebrar la alianza.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">4. Catering</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Servicio profesional encargado del suministro de alimentos y bebidas para banquetes, reuniones de negocios o eventos solemnes.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Servicio gastronómico adaptado al protocolo de negocios; incluye pausas de café ('Coffee Break') estructuradas para dinamizar juntas largas.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">5. Ceremonial</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Serie de formalidades, ritos y pasos regulados para la celebración de actos solemnes institucionales o públicos.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Logística secuencial rígida ejecutada durante firmas de convenios internacionales o investiduras académicas de alta dirección.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">6. Clausura de Sesiones</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Acto final que concluye formal y solemnemente un congreso, periodo de debates o junta corporativa ordinaria.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Protocolo de cierre donde la máxima autoridad emite un discurso de agradecimiento y declara formalmente concluidos los trabajos anuales.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">7. Código de Vestimenta</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conjunto de reglas que determinan el estilo de indumentaria apropiado exigido para asistir a un acto formal o social específico.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Indicación explícita impresa en las invitaciones corporativas ('Dress Code') para estandarizar la estética visual de los asistentes.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">8. Código Ético</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Compendio normativo que fija los principios Morales, valores y responsabilidades de conducta en un gremio profesional.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Marco normativo institucionalizado en la empresa moderna para regir las operaciones transparentes y las relaciones de valor del negocio.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">9. Comité Organizador</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Grupo de personas encargadas por una institución para planificar, coordinar y ejecutar un evento formal o certamen científico.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Equipo multidisciplinario de la corporación responsable de supervisar proveedores, registros y control de accesos de la asamblea.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">10. Condecoración</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Cruz, medalla, placa o galardón formal otorgado a alguien como reconocimiento público a sus méritos y trayectoria profesional.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Protocolo de premiación institucional donde la empresa reconoce públicamente la antigüedad o aportes técnicos de sus operarios.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">11. Convocatoria</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Anuncio, escrito o notificación formal con que se cita de manera obligatoria a los miembros de una organización a reunirse.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Documento de comunicación formal que fija la fecha, lugar, hora y orden del día para la celebración de una asamblea general ordinaria.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">12. Cronograma (Timing)</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Calendario de trabajo o tabla temporal donde se especifican de manera exacta los plazos y tiempos de ejecución de actividades.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Escaleta de producción que mide al minuto el encendido de luces, proyección de videos y palabras del orador en una gala institucional.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">13. Discurso de Apertura</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Alocución inicial formal con que la presidencia da la bienvenida a un evento de carácter académico o mercantil corporativo.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Intervención estratégica ejecutada por altos cargos para delimitar la visión del congreso antes del inicio formal del programa logístico.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">14. Etiqueta Corporativa</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conjunto de estilos, modales, vestimentas y costumbres que se exigen en actos solemnes o de la vida profesional de alta sociedad.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Código de conducta formal y pautas de vestimenta (bussines casual, gala) requeridas para resguardar el prestigio de la firma mercantil.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">15. Evento Corporativo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Acontecimiento programado e institucional de importancia para una organización de negocios o gremio comercial.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Herramienta estratégica de marketing y relaciones públicas (asambleas, aniversarios, galas) diseñada para cohesionar socios o clientes.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">16. Gafete de Identificación</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Distintivo o tarjeta de seguridad que se lleva colgada para acreditar la identidad, nombre y cargo de un asistente a un acto.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Credencial obligatoria en simposios comerciales que detalla el rango y procedencia del participante, facilitando el 'Networking'.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">17. Inauguración formal</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Acto solemne con que se apertura o da inicio público a las actividades de un establecimiento, congreso o exposición técnica.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Ceremonia de relaciones públicas que marca el inicio de operaciones de una empresa, caracterizada habitualmente por el corte de listón.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">18. Kit de Bienvenida</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conjunto de obsequios, folletos informativos y herramientas que una institución entrega formalmente a los participantes de un acto.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Paquete promocional corporativo ('Merchandising') entregado a congresistas para reforzar la retención de marca y la fidelización.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">19. Logística de Evento</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conjunto de medios, transportes e infraestructuras necesarios para llevar a cabo de manera coordinada una actividad compleja.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Planificación técnica que coordina el catering, audio, registro digital y seguridad en congresos comerciales masivos.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">20. Maestro de Ceremonias</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Persona encargada de coordinar y dirigir el desarrollo formal de un acto público o solemnidad, introduciendo a los oradores.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Locutor o presentador encargado de guiar el hilo discursivo de una entrega de premios empresariales conforme a la escaleta técnica.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">21. Memoria Corporativa</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Documento formal explicativo anual donde una institución rinde cuentas sobre sus actividades, finanzas y metas logradas.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Informe estratégico anual obligatorio remitido a socios e inversionistas para transparentar el crecimiento integral de la corporación.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">22. Memorias de Congreso</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Publicación o compendio documental formal que reúne los trabajos técnicos y ponencias expuestas durante un simposio académico.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Compendio digital de alto valor técnico editado tras un foro de negocios que resume los avances y proyecciones de una industria.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">23. Moderador</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Persona encargada de dirigir, regular y templar los debates y participaciones en una mesa de diálogo pública.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Profesional encargado de controlar el tiempo de los panelistas corporativos y reconducir las preguntas para mantener el interés comercial.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">24. Orden del Día</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Relación ordenada de los asuntos, debates y votaciones que se van a tratar en una sesión, asamblea o junta oficial convocada.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Agenda temática formal enviada con antelación a los accionistas para estructurar el tiempo y los puntos críticos de resolución.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">25. Precedencia</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Prioridad, antelación o supremacía en el orden de colocación o paso que corresponde a alguien por su rango o cargo formal.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Regla de oro del protocolo empresarial que determina el orden exacto de asientos y turnos de palabra en una junta de socios.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">26. Pre-registro</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Inscripción preliminar obligatoria que realiza un participante antes de la fecha de apertura de un congreso o certamen.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Filtro digital en línea utilizado por los organizadores para estimar el aforo real de un evento y personalizar los gafetes técnicos.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">27. Presídium</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Mesa directiva o conjunto de autoridades de alto rango que presiden de forma solemne una asamblea o acto público corporativo.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Mesa de honor dispuesta al frente de un auditorio donde se ubican las jerarquías más elevadas siguiendo las reglas de precedencia.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">28. Presupuesto Base</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Cómputo anticipado del coste financiero de una obra, servicio o de las operaciones generales de un evento.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Documento contable base de la planeación logística que limita el gasto asignado a proveedores de eventos para asegurar el ROI.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">29. Protocolo</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Conjunto de reglas formales establecidas por norma legal o por costumbre para ceremonias y actos oficiales o solemnes.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Manual normativo que estandariza las formalidades, recepciones, códigos de vestimenta e identidades visuales en eventos institucionales.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">30. Relaciones Públicas</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Actividad profesional orientada a promover y sostener el prestigio y la buena comunicación de una institución ante sus públicos.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Gestión estratégica de la reputación que utiliza eventos corporativos y notas de prensa para tejer vínculos de valor con la comunidad.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">31. Sede del Evento</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Lugar, recinto, ciudad o establecimiento donde se celebra de manera oficial una asamblea, congreso o junta de negocios.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Espacio inmobiliario (hoteles convencionales, centros de exposiciones) seleccionado estratégicamente por su conectividad urbana y capacidad.</p>
+                </div>
+            </div>
+            <div class="word-item" onclick="openModal(this)">
+                <span class="word-term">32. Trato Institucional</span>
+                <div class="word-definitions">
+                    <p><span class="source-tag rae">RAE:</span> Relación comunicativa de cortesía regulada por normas diplomáticas que se dispensa a dignatarios u oficiales en un acto público.</p>
+                    <p><span class="source-tag wiki">Wikipedia:</span> Normativa protocolar que dicta el correcto vocativo y tratamiento formal (ej. 'Excelentísimo', 'Rector') al recibir autoridades gubernamentales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<div id="wordModal" class="modal" onclick="closeModalOutside(event)">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2 class="modal-title" id="modalWordTitle">Término</h2>
+        <div class="modal-body" id="modalWordBody">
+            </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <h3><i class="fa-solid fa-graduation-cap"></i> Referencias Bibliográficas (Normativa APA 7.ª edición)</h3>
+        
+        <div class="apa-citation">
+            Fundación del Español Urgente (FundéuRAE). (2023). <em>Manual de estilo para la redacción de documentos corporativos y profesionales de la era digital</em>. Real Academia Española.
+        </div>
+        
+        <div class="apa-citation">
+            Real Academia Española. (s.f.). <em>Diccionario de la lengua española</em> (Edición del Tricentenario). Recuperado el 19 de mayo de 2026, de <a href="https://dle.rae.es" target="_blank" style="color: var(--accent); text-decoration: none;">https://dle.rae.es</a>
+        </div>
+
+        <div class="apa-citation">
+            Wikipedia de la Comunidad Lingüística, Comercial e Industrial. (s.f.). <em>Enciclopedia global de términos técnicos, communication organizacional, retórica directiva y protocolo administrativo moderno</em>. Recuperado el 19 de mayo de 2026, de <a href="https://es.wikipedia.org" target="_blank" style="color: var(--accent); text-decoration: none;">https://es.wikipedia.org</a>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy; 2026 Glosario Académico de Competencias Comunicativas • Diseñado bajo Estándares Profesionales.
+    </div>
+</footer>
+
+<script>
+    // Función para abrir la ventana modal y cargar el contenido
+    function openModal(element) {
+        const wordTitle = element.querySelector('.word-term').innerText;
+        const definitionsHTML = element.querySelector('.word-definitions').innerHTML;
+        
+        document.getElementById('modalWordTitle').innerText = wordTitle;
+        document.getElementById('modalWordBody').innerHTML = definitionsHTML;
+        document.getElementById('wordModal').style.display = 'flex';
+    }
+
+    // Función para cerrar la ventana modal
+    function closeModal() {
+        document.getElementById('wordModal').style.display = 'none';
+    }
+
+    // Cerrar la ventana modal si el usuario hace clic fuera del cuadro blanco
+    function closeModalOutside(event) {
+        const modalContent = document.querySelector('.modal-content');
+        if (!modalContent.contains(event.target) && event.target.className === 'modal') {
+            closeModal();
+        }
+    }
+
+    // FUNCIÓN DEL BUSCADOR EN TIEMPO REAL
+    function filterWords() {
+        const searchInput = document.getElementById('vocabSearch').value.toLowerCase();
+        const wordCards = document.querySelectorAll('.word-item');
+
+        wordCards.forEach(card => {
+            const wordText = card.querySelector('.word-term').innerText.toLowerCase();
+            // Evalúa si el texto de la tarjeta contiene la búsqueda
+            if (wordText.includes(searchInput)) {
+                card.style.display = 'flex'; // Muestra la tarjeta cuadro
+            } else {
+                card.style.display = 'none'; // Oculta la tarjeta cuadro
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
